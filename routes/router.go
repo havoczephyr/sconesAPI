@@ -63,7 +63,7 @@ func Router(app *fiber.App, db *gorm.DB) {
 	})
 
 	app.Get("/api/useNextActivePost", func(c *fiber.Ctx) error {
-		return c.SendString("Sending the next active quote and marking them as used")
+		return logic.UseNextActivePost(c, db)
 	})
 
 	app.Post("/api/createNewQuote", func(c *fiber.Ctx) error {
