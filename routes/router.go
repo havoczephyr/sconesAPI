@@ -38,23 +38,31 @@ func Router(app *fiber.App, db *gorm.DB) {
 		return c.SendString("User Created Successfully")
 	})
 
-	app.Get("/api/allUncuratedQuotes", func(c *fiber.Ctx) error {
-		return c.SendString("Get all quotes pending Curation")
+	app.Get("/api/allPendingPosts", func(c *fiber.Ctx) error {
+		return logic.FetchPendingPosts(c, db)
 	})
 
-	app.Get("/api/allDeniedQuotes", func(c *fiber.Ctx) error {
+	app.Put("/api/allPendingToActive", func(c *fiber.Ctx) error {
+		return logic.SetAllPendingToActive(db, c)
+	})
+
+	app.Put("/api/denyPost", func(c *fiber.Ctx) error {
+		return logic.DenyPost(c, db)
+	})
+
+	app.Get("/api/allDeniedPost", func(c *fiber.Ctx) error {
 		return c.SendString("Get all quotes denied in Curation")
 	})
 
-	app.Get("/api/allUsedQuotes", func(c *fiber.Ctx) error {
+	app.Get("/api/allUsedPost", func(c *fiber.Ctx) error {
 		return c.SendString("Get all quotes already used in QOTD")
 	})
 
-	app.Get("/api/allActiveQuotes", func(c *fiber.Ctx) error {
+	app.Get("/api/allActivePosts", func(c *fiber.Ctx) error {
 		return c.SendString("Get all quotes pending use by QOTD")
 	})
 
-	app.Get("/api/useNextActiveQuote", func(c *fiber.Ctx) error {
+	app.Get("/api/useNextActivePost", func(c *fiber.Ctx) error {
 		return c.SendString("Sending the next active quote and marking them as used")
 	})
 

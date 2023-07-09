@@ -17,7 +17,7 @@ func CreateNewPost(c *fiber.Ctx, db *gorm.DB) error {
 	newPost := models.Question{
 		Body:   parsedBody.Body,
 		Author: parsedBody.Author,
-		Status: "Pending",
+		Status: "pending",
 	}
 
 	result := db.Create(&newPost)

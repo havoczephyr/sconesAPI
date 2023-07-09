@@ -6,7 +6,7 @@ type Question struct {
 	gorm.Model
 	Body   string
 	Author string
-	Status string
+	Status string `gorm:"column:status"`
 }
 
 /* Status can be:
