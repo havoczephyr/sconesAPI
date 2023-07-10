@@ -71,7 +71,14 @@ func Router(app *fiber.App, db *gorm.DB) {
 		if err != nil {
 			fiber.NewError(401, "Unauthorized")
 		}
-		return c.SendString("Create a new quote")
+		return c.SendString("Created a new quote")
+	})
+	app.Post("/api/createPriorityQuote", func(c *fiber.Ctx) error {
+		err := logic.CreatePriorityPost(c, db)
+		if err != nil {
+			fiber.NewError(401, "Unauthorized")
+		}
+		return c.SendString("Created a new priority quote")
 	})
 
 }

@@ -7,8 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func CreateNewPost(c *fiber.Ctx, db *gorm.DB) error {
-	parsedBody := new(createPostBody)
+func CreatePriorityPost(c *fiber.Ctx, db *gorm.DB) error {
+	parsedBody := new(createPriorityBody)
 	err := c.BodyParser(parsedBody)
 	if err != nil {
 		return err
@@ -17,8 +17,8 @@ func CreateNewPost(c *fiber.Ctx, db *gorm.DB) error {
 	newPost := models.Question{
 		Body:     parsedBody.Body,
 		Author:   parsedBody.Author,
-		Status:   "pending",
-		Priority: false,
+		Status:   "active",
+		Priority: true,
 	}
 
 	result := db.Create(&newPost)
@@ -28,7 +28,7 @@ func CreateNewPost(c *fiber.Ctx, db *gorm.DB) error {
 	return nil
 }
 
-type createPostBody struct {
+type createPriorityBody struct {
 	Body   string
 	Author string
 }
